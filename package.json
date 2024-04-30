@@ -1,0 +1,10 @@
+{
+  "name": "ollyo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "jsdom": "^24.0.0",
+    "node-notifier": "^10.0.1"
+  }
+}
