@@ -27,7 +27,7 @@ async function main() {
             // check keyword exists
             for (let title of jobTitles) {
                 if (keywords.some(k => title.includes(k))) {
-                    mail({ to: process.env.EMAIL_FOR_ALERT, subject: 'Ollyo is hiring', text: `Found keyword match on ollyo job title ${title}` });
+                    mail({ to: process.env.EMAIL_FOR_ALERT, subject: 'Ollyo is hiring', text: `Found keyword match at ollyo. Job title ${title}` });
                     notifier.notify({
                         title: 'Ollyo is hiring',
                         message: `Found keyword match on ollyo job title ${title}`
