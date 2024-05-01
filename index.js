@@ -3,7 +3,8 @@ const api = require("./api");
 const { JSDOM } = require('jsdom');
 const notifier = require('node-notifier');
 const mail = require("./mail");
-const keywords = ['node.js', 'nodejs', 'node js', 'node', 'express', 'nestjs', 'backend', 'motion'];
+const keywords = []//(process.env.KEYWORDS || '').split(',');
+// if ()
 
 async function main() {
     while (true) {
@@ -27,6 +28,7 @@ async function main() {
             // check keyword exists
             for (let title of jobTitles) {
                 if (keywords.some(k => title.includes(k))) {
+                    console.log('hit', title);
                     mail({ to: process.env.EMAIL_FOR_ALERT, subject: 'Ollyo is hiring', text: `Found keyword match at ollyo. Job title ${title}` });
                     notifier.notify({
                         title: 'Ollyo is hiring',
@@ -36,7 +38,7 @@ async function main() {
             }
         }
         catch (e) {
-            console.log(e);
+            console.log(e.cause);
         }
         // sleep
         await new Promise((r) => setTimeout(r, 3 * 60 * 1000));
