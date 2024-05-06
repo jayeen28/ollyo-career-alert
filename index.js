@@ -1,5 +1,5 @@
 require('dotenv').config();
-const api = require("./api");
+const api = require("./api_fetch.js");
 const { JSDOM } = require('jsdom');
 const notifier = require('node-notifier');
 const mail = require("./mail");
@@ -8,8 +8,9 @@ const keywords = (process.env.KEYWORDS || '').split(',');
 async function main() {
     while (true) {
         try {
-            const { data: html } = await api();
-            if (typeof html !== 'string' && !html) throw new Error('Empty response from olio');
+            const res = await api();
+            const { success, data: { html } } = await res.json();
+            if (!success && typeof html !== 'string' && !html) throw new Error('Empty response from olio');
             console.log('Data received from ollyo');
             const dom = new JSDOM(html);
             const document = dom.window.document;
